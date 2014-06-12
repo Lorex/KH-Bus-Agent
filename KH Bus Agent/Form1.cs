@@ -30,6 +30,7 @@ namespace KH_Bus_Agent
         }
         private void RefRoute()
         {
+            comboBox1.Items.Clear();
             //Load XML
             doc.Load("http://122.146.229.210/xmlbus2/StaticData/GetRoute.xml");
 
@@ -42,9 +43,27 @@ namespace KH_Bus_Agent
                 comboBox1.Items.Add(Single.Attributes["ID"].Value);
             }
         }
-        private void RefEstimate()
+        private void RefEstimate(string Route)
         {
+            dataGridView1.Rows.Clear();
 
+            string link = "http://122.146.229.210/xmlbus2/GetEstimateTime.xml?routeIds=" + Route;
+            //Load XML
+            doc.Load(link);
+
+            //Select Node List
+            XmlNodeList NodeLists = doc.SelectNodes("BusDynInfo/BusInfo/Route/EstimateTime");
+
+            //ReadNode
+            foreach(XmlNode Single in NodeLists)
+            {
+                string GoBack = (Single.Attributes["GoBack"].Value == "1") ? "去程" : "返程";
+                string StopName = Single.Attributes["StopName"].Value;
+                string Value = (Single.Attributes["Value"].Value == "null") ? "未發車" : Single.Attributes["Value"].Value + " 分鐘";
+                string CarID = (Single.Attributes["carId"].Value == "") ? "未發車" : Single.Attributes["carId"].Value;
+
+                dataGridView1.Rows.Add(GoBack,StopName,Value,CarID);
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -65,6 +84,12 @@ namespace KH_Bus_Agent
                     label7.Text = Single.Attributes["destinationZh"].Value;
                 }
             }
+            RefEstimate(comboBox1.Text);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RefEstimate(comboBox1.Text);
         }
     }
 

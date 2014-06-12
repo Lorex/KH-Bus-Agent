@@ -39,7 +39,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.GoBack = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StopName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.EstTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CarID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -62,20 +70,21 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(266, 233);
+            this.button1.Location = new System.Drawing.Point(522, 452);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
             this.button1.Text = "查詢";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(248, 13);
+            this.button2.Location = new System.Drawing.Point(504, 18);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 3;
-            this.button2.Text = "刷新";
+            this.button2.Text = "刷新路線";
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -92,7 +101,7 @@
             this.groupBox1.Controls.Add(this.comboBox1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(329, 91);
+            this.groupBox1.Size = new System.Drawing.Size(585, 91);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "公車路線";
@@ -151,11 +160,63 @@
             this.label7.TabIndex = 9;
             this.label7.Text = "-";
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.dataGridView1);
+            this.groupBox2.Location = new System.Drawing.Point(12, 109);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(585, 337);
+            this.groupBox2.TabIndex = 5;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "結果顯示";
+            // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.GoBack,
+            this.StopName,
+            this.EstTime,
+            this.CarID});
+            this.dataGridView1.Location = new System.Drawing.Point(8, 18);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 24;
+            this.dataGridView1.Size = new System.Drawing.Size(571, 313);
+            this.dataGridView1.TabIndex = 1;
+            // 
+            // GoBack
+            // 
+            this.GoBack.HeaderText = "去返程";
+            this.GoBack.Name = "GoBack";
+            this.GoBack.ReadOnly = true;
+            // 
+            // StopName
+            // 
+            this.StopName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.StopName.HeaderText = "站牌名稱";
+            this.StopName.Name = "StopName";
+            this.StopName.ReadOnly = true;
+            this.StopName.Width = 21;
+            // 
+            // EstTime
+            // 
+            this.EstTime.HeaderText = "預估到站時間";
+            this.EstTime.Name = "EstTime";
+            this.EstTime.ReadOnly = true;
+            // 
+            // CarID
+            // 
+            this.CarID.HeaderText = "車號";
+            this.CarID.Name = "CarID";
+            this.CarID.ReadOnly = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(353, 268);
+            this.ClientSize = new System.Drawing.Size(609, 487);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.button1);
             this.MaximizeBox = false;
@@ -165,6 +226,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -182,6 +245,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn GoBack;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StopName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn EstTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CarID;
     }
 }
 
