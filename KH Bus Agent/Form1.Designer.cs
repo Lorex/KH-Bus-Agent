@@ -44,6 +44,7 @@
             this.GoBack = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StopName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.EstTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArriveTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CarID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -178,6 +179,7 @@
             this.GoBack,
             this.StopName,
             this.EstTime,
+            this.ArriveTime,
             this.CarID});
             this.dataGridView1.Location = new System.Drawing.Point(8, 18);
             this.dataGridView1.Name = "dataGridView1";
@@ -201,9 +203,15 @@
             // 
             // EstTime
             // 
-            this.EstTime.HeaderText = "預估到站時間";
+            this.EstTime.HeaderText = "剩餘分鐘數";
             this.EstTime.Name = "EstTime";
             this.EstTime.ReadOnly = true;
+            // 
+            // ArriveTime
+            // 
+            this.ArriveTime.HeaderText = "到站時間";
+            this.ArriveTime.Name = "ArriveTime";
+            this.ArriveTime.ReadOnly = true;
             // 
             // CarID
             // 
@@ -250,6 +258,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn GoBack;
         private System.Windows.Forms.DataGridViewTextBoxColumn StopName;
         private System.Windows.Forms.DataGridViewTextBoxColumn EstTime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArriveTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn CarID;
     }
 }

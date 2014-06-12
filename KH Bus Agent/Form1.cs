@@ -60,9 +60,13 @@ namespace KH_Bus_Agent
                 string GoBack = (Single.Attributes["GoBack"].Value == "1") ? "去程" : "返程";
                 string StopName = Single.Attributes["StopName"].Value;
                 string Value = (Single.Attributes["Value"].Value == "null") ? "未發車" : Single.Attributes["Value"].Value + " 分鐘";
+                DateTime dt = DateTime.Now;
+                dt = dt.AddMinutes((Single.Attributes["Value"].Value == "null") ?0:Convert.ToDouble(Single.Attributes["Value"].Value));
+
+                string ArriveTime = (Single.Attributes["Value"].Value == "null") ? "未發車" : dt.ToString("HH : mm") ;             
                 string CarID = (Single.Attributes["carId"].Value == "") ? "未發車" : Single.Attributes["carId"].Value;
 
-                dataGridView1.Rows.Add(GoBack,StopName,Value,CarID);
+                dataGridView1.Rows.Add(GoBack,StopName,Value,ArriveTime,CarID);
             }
         }
 
