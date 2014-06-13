@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
+using System.IO;
 
 namespace KH_Bus_Agent
 {
@@ -129,8 +130,50 @@ namespace KH_Bus_Agent
         private void dataGridView2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.Rows.Count - 1;
+            XMLWrite();
         }
 
+        private void XMLWrite()
+        {
+            XmlDocument doc = new XmlDocument();
+
+            //check if file exists
+            string path = @"D:\Log";
+            string filename = DateTime.Now.ToString("yyyy-MM-dd") + ".xml";
+            if (!System.IO.File.Exists(System.IO.Path.Combine(path, filename)))
+            {
+                //root node
+                XmlElement root = doc.CreateElement("CarHistory");
+                doc.AppendChild(root);
+
+                // secondary node
+                XmlElement sec = doc.CreateElement("List");
+                sec.SetAttribute("Date",DateTime.Now.ToString("yyyyy-MM-dd"));
+                root.AppendChild(sec);
+
+                //create file
+                if (!System.IO.Directory.Exists(path))
+                    System.IO.Directory.CreateDirectory(path);
+                System.IO.File.Create(filename);
+                doc.Save(System.IO.Path.Combine(path, filename));
+            }
+
+            //load xml
+            doc.Load(System.IO.Path.Combine(path, filename));
+            XmlNode node = doc.SelectSingleNode("CarHistory/List");
+            if (node == null)
+                return;
+
+            //create node
+            XmlElement main = doc.CreateElement("History");
+            main.SetAttribute("Line", dataGridView2[0, dataGridView2.Rows.Count - 1].Value.ToString());
+            main.SetAttribute("GoBack", dataGridView2[1, dataGridView2.Rows.Count - 1].Value.ToString());
+            main.SetAttribute("StopName", dataGridView2[2, dataGridView2.Rows.Count - 1].Value.ToString());
+            main.SetAttribute("Time", dataGridView2[3, dataGridView2.Rows.Count - 1].Value.ToString());
+            main.SetAttribute("CarID", dataGridView2[4, dataGridView2.Rows.Count - 1].Value.ToString());
+            node.AppendChild(main);
+            doc.Save(System.IO.Path.Combine(path, filename));
+        }
     }
 
 }
