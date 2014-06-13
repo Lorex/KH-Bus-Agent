@@ -138,7 +138,9 @@ namespace KH_Bus_Agent
             XmlDocument doc = new XmlDocument();
 
             //check if file exists
-            string path = @"D:\Log";
+            string path = textBox1.Text;
+            if (path == "")
+                path = @"D:\Logs";
             string filename = DateTime.Now.ToString("yyyy-MM-dd") + ".xml";
             if (!System.IO.File.Exists(System.IO.Path.Combine(path, filename)))
             {
@@ -173,6 +175,14 @@ namespace KH_Bus_Agent
             main.SetAttribute("CarID", dataGridView2[4, dataGridView2.Rows.Count - 1].Value.ToString());
             node.AppendChild(main);
             doc.Save(System.IO.Path.Combine(path, filename));
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            folderBrowserDialog1.ShowDialog();
+            if (folderBrowserDialog1.SelectedPath == "")
+                folderBrowserDialog1.SelectedPath = @"D:\Logs";
+            textBox1.Text = folderBrowserDialog1.SelectedPath;
         }
     }
 
