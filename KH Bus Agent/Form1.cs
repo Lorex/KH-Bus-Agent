@@ -43,9 +43,10 @@ namespace KH_Bus_Agent
                 comboBox1.Items.Add(Single.Attributes["ID"].Value);
             }
         }
-        private void RefEstimate(string Route)
+        private void RefEstimate(string Route,bool History,bool AutoRef10s)
         {
-            dataGridView1.Rows.Clear();
+            if (comboBox1.Text == "")
+                return;
 
             string link = "http://122.146.229.210/xmlbus2/GetEstimateTime.xml?routeIds=" + Route;
             //Load XML
@@ -53,23 +54,42 @@ namespace KH_Bus_Agent
 
             //Select Node List
             XmlNodeList NodeLists = doc.SelectNodes("BusDynInfo/BusInfo/Route/EstimateTime");
+            
+            if (History == false)
+                dataGridView1.Rows.Clear();
 
             //ReadNode
             foreach(XmlNode Single in NodeLists)
             {
                 string GoBack = (Single.Attributes["GoBack"].Value == "1") ? "去程" : "返程";
                 string StopName = Single.Attributes["StopName"].Value;
-                string Value = (Single.Attributes["Value"].Value == "null") ? "未發車" : Single.Attributes["Value"].Value + " 分鐘";
-                DateTime dt = DateTime.Now;
-                dt = dt.AddMinutes((Single.Attributes["Value"].Value == "null") ?0:Convert.ToDouble(Single.Attributes["Value"].Value));
-
-                string ArriveTime = (Single.Attributes["Value"].Value == "null") ? "未發車" : dt.ToString("HH : mm") ;             
+                string Value = Single.Attributes["Value"].Value;
                 string CarID = (Single.Attributes["carId"].Value == "") ? "未發車" : Single.Attributes["carId"].Value;
 
-                dataGridView1.Rows.Add(GoBack,StopName,Value,ArriveTime,CarID);
+                DateTime dt = DateTime.Now;
+                dt = dt.AddMinutes((Single.Attributes["Value"].Value == "null") ? 0 : Convert.ToDouble(Single.Attributes["Value"].Value));
+
+                string ArriveTime = (Single.Attributes["Value"].Value == "null") ? "未發車" : dt.ToString("HH : mm");
+
+                switch(Value)
+                {
+                    case "null":
+                        Value = "未發車";
+                        break;
+                    case "0":
+                        Value = "進站中";
+                        if(!AutoRef10s)
+                            dataGridView2.Rows.Add(Route,GoBack, StopName, ArriveTime, CarID);
+                        break;
+                    default :
+                        Value = Value + " 分鐘";
+                        break;
+
+                }
+                if(History == false)
+                    dataGridView1.Rows.Add(GoBack,StopName,Value,ArriveTime,CarID);
             }
         }
-
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             //Load XML
@@ -88,13 +108,29 @@ namespace KH_Bus_Agent
                     label7.Text = Single.Attributes["destinationZh"].Value;
                 }
             }
-            RefEstimate(comboBox1.Text);
+            RefEstimate(comboBox1.Text,false,false);
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void timer1_Tick(object sender, EventArgs e)
         {
-            RefEstimate(comboBox1.Text);
+            RefEstimate(comboBox1.Text,false,true);
         }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            timer1.Enabled = false;
+            foreach(string line in comboBox1.Items)
+            {
+                RefEstimate(line, true,false);
+            }
+            timer1.Enabled = true;
+        }
+
+        private void dataGridView2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            dataGridView2.FirstDisplayedScrollingRowIndex = dataGridView2.Rows.Count - 1;
+        }
+
     }
 
 }

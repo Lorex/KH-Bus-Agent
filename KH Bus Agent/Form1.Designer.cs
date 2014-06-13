@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button2 = new System.Windows.Forms.Button();
@@ -45,9 +46,20 @@
             this.EstTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ArriveTime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CarID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.Line = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
@@ -155,13 +167,15 @@
             this.groupBox2.Controls.Add(this.dataGridView1);
             this.groupBox2.Location = new System.Drawing.Point(12, 109);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(585, 366);
+            this.groupBox2.Size = new System.Drawing.Size(585, 591);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "結果顯示";
             // 
             // dataGridView1
             // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -172,8 +186,9 @@
             this.CarID});
             this.dataGridView1.Location = new System.Drawing.Point(8, 18);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(571, 342);
+            this.dataGridView1.Size = new System.Drawing.Size(571, 567);
             this.dataGridView1.TabIndex = 1;
             // 
             // GoBack
@@ -188,7 +203,7 @@
             this.StopName.HeaderText = "站牌名稱";
             this.StopName.Name = "StopName";
             this.StopName.ReadOnly = true;
-            this.StopName.Width = 21;
+            this.StopName.Width = 5;
             // 
             // EstTime
             // 
@@ -208,11 +223,87 @@
             this.CarID.Name = "CarID";
             this.CarID.ReadOnly = true;
             // 
+            // timer1
+            // 
+            this.timer1.Enabled = true;
+            this.timer1.Interval = 10000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.dataGridView2);
+            this.groupBox3.Location = new System.Drawing.Point(603, 12);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(561, 688);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "歷史紀錄";
+            // 
+            // dataGridView2
+            // 
+            this.dataGridView2.AllowUserToAddRows = false;
+            this.dataGridView2.AllowUserToDeleteRows = false;
+            this.dataGridView2.AllowUserToOrderColumns = true;
+            this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Line,
+            this.dataGridViewTextBoxColumn1,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn4,
+            this.dataGridViewTextBoxColumn5});
+            this.dataGridView2.Location = new System.Drawing.Point(6, 18);
+            this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
+            this.dataGridView2.RowTemplate.Height = 24;
+            this.dataGridView2.Size = new System.Drawing.Size(549, 664);
+            this.dataGridView2.TabIndex = 2;
+            this.dataGridView2.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView2_RowsAdded);
+            // 
+            // Line
+            // 
+            this.Line.HeaderText = "路線";
+            this.Line.Name = "Line";
+            this.Line.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            this.dataGridViewTextBoxColumn1.HeaderText = "去返程";
+            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            this.dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            this.dataGridViewTextBoxColumn2.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCellsExceptHeader;
+            this.dataGridViewTextBoxColumn2.HeaderText = "站牌名稱";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.Width = 5;
+            // 
+            // dataGridViewTextBoxColumn4
+            // 
+            this.dataGridViewTextBoxColumn4.HeaderText = "到站時間";
+            this.dataGridViewTextBoxColumn4.Name = "dataGridViewTextBoxColumn4";
+            this.dataGridViewTextBoxColumn4.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            this.dataGridViewTextBoxColumn5.HeaderText = "車號";
+            this.dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            this.dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Interval = 60000;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 487);
+            this.ClientSize = new System.Drawing.Size(1176, 712);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.MaximizeBox = false;
@@ -224,6 +315,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -247,6 +340,15 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn EstTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn ArriveTime;
         private System.Windows.Forms.DataGridViewTextBoxColumn CarID;
+        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.DataGridView dataGridView2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Line;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 
